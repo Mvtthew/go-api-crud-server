@@ -5,6 +5,7 @@ import (
 	"awesomeProject/cmd/services"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
 func CreateUser(c *gin.Context) {
@@ -19,6 +20,14 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, services.CreateUser(user))
+}
+
+func DeleteUser(c *gin.Context)  {
+	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, err.Error())
+	}
+	c.JSON(http.StatusAccepted, services.RemoveUserById(uint(id)))
 }
 
 func GetAllUsers(c *gin.Context) {

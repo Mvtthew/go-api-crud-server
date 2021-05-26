@@ -12,6 +12,7 @@ func initPingRoutes() {
 func initUsersRoutes()  {
 	engine.REngine.GET("/users", controllers.GetAllUsers)
 	engine.REngine.POST("/users", controllers.CreateUser)
+	engine.REngine.DELETE("/users/:id", controllers.DeleteUser)
 }
 
 func InitRoutes() {

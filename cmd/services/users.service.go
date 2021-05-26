@@ -3,11 +3,22 @@ package services
 import (
 	"awesomeProject/cmd/database"
 	"awesomeProject/cmd/models"
+	"github.com/gin-gonic/gin"
 )
 
 func CreateUser(user models.User) models.User {
 	database.DB.Create(&user)
 	return user
+}
+
+func RemoveUserById(id uint) gin.H {
+	var user models.User
+	result := database.DB.Find(&user, id)
+	if result.RowsAffected == 0 {
+		return gin.H{"message": "User does not exists"}
+	}
+	database.DB.Delete(&user)
+	return gin.H{"message": "User deleted"}
 }
 
 func GetAllUsers() []models.User {
