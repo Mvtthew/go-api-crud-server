@@ -21,6 +21,16 @@ func RemoveUserById(id uint) gin.H {
 	return gin.H{"message": "User deleted"}
 }
 
+func UpdateUserById(updatedUser models.User, id uint) models.User {
+	var user models.User
+	result := database.DB.Find(&user, id)
+	if result.RowsAffected == 0 {
+		return user
+	}
+	result.Updates(updatedUser)
+	return user
+}
+
 func GetAllUsers() []models.User {
 	var users []models.User
 	database.DB.Find(&users)

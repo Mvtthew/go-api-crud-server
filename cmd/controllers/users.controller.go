@@ -30,6 +30,20 @@ func DeleteUser(c *gin.Context)  {
 	c.JSON(http.StatusAccepted, services.RemoveUserById(uint(id)))
 }
 
+func UpdateUser(c *gin.Context)  {
+	id, idErr := strconv.ParseUint(c.Param("id"), 10, 64)
+	if idErr != nil {
+		c.JSON(http.StatusBadRequest, idErr.Error())
+	}
+	var user models.User
+	jsonErr := c.ShouldBindJSON(&user)
+	if jsonErr != nil {
+		c.JSON(http.StatusBadRequest, jsonErr.Error())
+		return
+	}
+	c.JSON(http.StatusAccepted, services.UpdateUserById(user, uint(id)))
+}
+
 func GetAllUsers(c *gin.Context) {
 	c.JSON(http.StatusOK, services.GetAllUsers())
 }
