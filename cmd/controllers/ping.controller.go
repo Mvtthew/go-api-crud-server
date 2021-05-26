@@ -1,9 +1,12 @@
 package controllers
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"net/http"
+)
 
-func HandlePingPong(c *gin.Context)  {
-	c.JSON(200, gin.H{
+func HandlePingPong(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
 		"message": "PONG",
 	})
 }

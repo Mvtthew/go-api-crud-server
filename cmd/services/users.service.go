@@ -5,11 +5,12 @@ import (
 	"awesomeProject/cmd/models"
 )
 
-func CreateUser(user models.User)  {
-	database.DB.Create(user)
+func CreateUser(user models.User) models.User {
+	database.DB.Create(&user)
+	return user
 }
 
-func GetAllUsers() []models.User  {
+func GetAllUsers() []models.User {
 	var users []models.User
 	database.DB.Find(&users)
 	return users

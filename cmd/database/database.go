@@ -8,19 +8,19 @@ import (
 
 var DB *gorm.DB
 
-func migrateDb()  {
+func migrateDb() {
 	DB.AutoMigrate(&models.User{})
 }
 
-func createDb()  {
+func createDb() {
 	db, err := gorm.Open(sqlite.Open("root.db"), &gorm.Config{})
 	if err != nil {
-		panic("failed to connect database")
+		panic("Failed to connect database")
 	}
 	DB = db
 }
 
-func InitDB()  {
+func InitDB() {
 	createDb()
 	migrateDb()
 }
